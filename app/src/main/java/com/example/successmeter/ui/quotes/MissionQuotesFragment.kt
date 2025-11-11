@@ -1,10 +1,14 @@
 package com.example.successmeter.ui.quotes
 
 // ---------- Imports: keep explicit for clarity ----------
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.successmeter.databinding.FragmentMissionQuotesBinding
 import com.example.successmeter.ui.home.HomeViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,67 +31,48 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MissionQuotesFragment : Fragment() {
 
-    // Backing (nullable) binding reference — valid only between onCreateView and onDestroyView.
     private var _binding: FragmentMissionQuotesBinding? = null
-
-    // Non-null shorthand accessor used only while the view exists.
     private val binding get() = _binding!!
 
-    // Fragment-scoped ViewModel (provided by Hilt via @HiltViewModel on HomeViewModel).
-    private val vm: HomeViewModel by viewModels()
+    // Swap HomeViewModel → QuotesViewModel
+    private val vm: QuotesViewModel by viewModels()
 
-    // RecyclerView adapter for quotes. Accepts an optional click lambda if needed.
     private val adapter = QuoteAdapter { quote ->
-        // Optional: Handle row clicks (e.g., open details, copy text, etc.)
-        // For now we keep it no-op. You can add a Snackbar/toast here if you like.
-        // Snackbar.make(binding.root, "Clicked: ${quote.author}", Snackbar.LENGTH_SHORT).show()
+        // Example: copy to clipboard + increment uses
+        val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        cm.setPrimaryClip(ClipData.newPlainText("Quote", "“${quote.text}” — ${quote.author ?: ""}"))
+        Snackbar.make(binding.root, "Copied", Snackbar.LENGTH_SHORT).show()
+        vm.incrementUses(quote.id)
     }
 
-    /**
-     * Inflate the view binding. Do NOT start collecting flows here — the view isn't fully created yet.
-     */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
         _binding = FragmentMissionQuotesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    /**
-     * Safe place to access views, set adapters, and start lifecycle-aware collection.
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // 1) Attach the adapter to the RecyclerView declared in fragment_mission_quotes.xml
+        // 1) LayoutManager (required) – vertical list
+        binding.recyclerQuotes.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+
+        // 2) Adapter
         binding.recyclerQuotes.adapter = adapter
 
-        // 2) Collect quotes from the ViewModel with lifecycle awareness.
-        // - Use viewLifecycleOwner.lifecycleScope (tied to the view's lifecycle).
-        // - repeatOnLifecycle(STARTED) automatically stops collecting when the view is STOPPED/DESTROYED,
-        //   preventing memory leaks and unnecessary work.
+        // 3) Optional performance hint (size doesn’t change when content updates)
+        binding.recyclerQuotes.setHasFixedSize(true)
+
+        // 4) Optional spacing
+        val px = (12 * resources.displayMetrics.density).toInt()
+        binding.recyclerQuotes.addItemDecoration(VerticalSpaceItemDecoration(px))
+
+        // 5) Collect your flow as before…
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.quote.collect { list ->
-                    // Submit the new list to the ListAdapter.
-                    // DiffUtil inside QuoteAdapter will calculate minimal changes (smooth animations).
-                    adapter.submitList(list)
-                }
+                vm.quotes.collect { list -> adapter.submitList(list) }
             }
         }
-
-        // (Optional) If you add search/filter UI later:
-        // binding.searchInput.doAfterTextChanged { text ->
-        //     vm.search(text.toString()) // expose search() in VM & repo
-        // }
     }
 
-    /**
-     * Clear the binding reference when the view is destroyed.
-     * This avoids leaking the view hierarchy when the Fragment is kept on the back stack.
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun onDestroyView() { super.onDestroyView(); _binding = null }
 }
+

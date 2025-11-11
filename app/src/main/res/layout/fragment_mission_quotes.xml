@@ -1,14 +1,37 @@
-<!-- app/src/main/res/layout/fragment_mission_quotes.xml -->
-<!-- This layout name generates FragmentMissionQuotesBinding -->
+<!-- fragment_mission_quotes.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical" android:padding="16dp"
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <!-- RecyclerView ID must match what you use in Kotlin (recyclerQuotes) -->
+    <!-- Search input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search quotes">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Small vertical gap -->
+    <View android:layout_width="match_parent" android:layout_height="8dp"/>
+
+    <!-- Favorites only toggle -->
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favorites only"/>
+
+    <!-- Small vertical gap -->
+    <View android:layout_width="match_parent" android:layout_height="8dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerQuotes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

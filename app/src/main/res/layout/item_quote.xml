@@ -1,25 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- item_quote.xml -->
+<!-- Purpose: clean, card-like quote row with quote text and author -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_marginBottom="12dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvQuote"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:textSize="16sp"
-        android:text="Quote text" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp"
-        android:text="— Author"
-        android:alpha="0.8" />
-</LinearLayout>
+        <!-- Quote text -->
+        <TextView
+            android:id="@+id/tvQuote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- Small space -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp" />
+
+        <!-- Author line -->
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
