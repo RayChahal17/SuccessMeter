@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.successmeter.data.local.db.dao.QuoteDao
 import com.example.successmeter.data.local.db.entity.QuoteEntity
 
-@Database(entities = [QuoteEntity::class], version = 1, exportSchema = false)
+@Database(entities = [QuoteEntity::class], version = 2, exportSchema = false)
 
 abstract class AppDatabase : RoomDatabase(){
     abstract fun quoteDao(): QuoteDao

@@ -7,9 +7,13 @@ import androidx.room.PrimaryKey
 data class QuoteEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val text: String,
-    val author: String? = null
-
-    )
-
+    val author: String? = null,           // allow null if your schema did
+    val tagsCsv: String? = null,
+    val sourceUrl: String? = null,
+    val isFavorite: Boolean = false,
+    val uses: Int = 0,
+    val createdAt: Long = System.currentTimeMillis(),
+    val deletedAt: Long? = null           // <-- must exist & be nullable
+)
 
 

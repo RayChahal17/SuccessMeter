@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.successmeter.databinding.FragmentHomeBinding
+import com.example.successmeter.ui.quotes.QuoteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,22 +39,7 @@ class HomeFragment : Fragment() {
         //LinearLayoutManager = vertical list
         //set the adapter
 
-        binding.fabAdd.setOnClickListener { vm.addSample() }
-        //When the FAB is tapped, call the ViewModel method that inserts a sample quote.
-        //ViewModel writes to Room; Room emits a new list; UI updates automatically (thanks to Flow).
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.recent.collect { list -> adapter.submitList(list) }
-            }
-        }
-        //Collecting the Flow safely:
-        //viewLifecycleOwner.lifecycleScope runs coroutines tied to the view’s lifecycle (not the fragment object), so they cancel when the view is destroyed.
-        //repeatOnLifecycle(STARTED) means:
-        //When the view is STARTED or RESUMED, start collecting vm.recent.
-        //When the view moves to STOPPED (e.g., you navigate away), stop collecting automatically (avoid leaks and unnecessary work).
-        //adapter.submitList(list) feeds the latest list to ListAdapter (DiffUtil does efficient updates).
-        //rule of thumb: repeatOnLifecycle(STARTED) is the recommended, leak-free way to collect a Flow in a Fragment.
     }
     override fun onDestroyView() {
         _binding = null

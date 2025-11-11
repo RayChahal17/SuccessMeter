@@ -1,4 +1,4 @@
-package com.example.successmeter.ui.home
+package com.example.successmeter.ui.quotes
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -59,13 +59,13 @@ class QuoteAdapter(
      * then bind its fields to the TextViews.
      */
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val item = getItem(position)  // <-- the current QuoteEntity
+        val item = getItem(position)
         holder.binding.tvQuote.text = item.text
         holder.binding.tvAuthor.text = item.author?.let { "— $it" } ?: ""
 
-        // Optional row click
         holder.binding.root.setOnClickListener { onItemClick(item) }
     }
+
     // (Optional) If you want extra-smooth change animations, enable stable IDs:
     // init { setHasStableIds(true) }
     // override fun getItemId(position: Int): Long = getItem(position).id

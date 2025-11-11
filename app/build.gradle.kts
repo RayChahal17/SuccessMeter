@@ -8,6 +8,9 @@ plugins {
 
     // Hilt plugin via catalog alias
     alias(libs.plugins.hilt.android.plugin)
+
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 
@@ -81,4 +84,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.recyclerview)
+
+    androidTestImplementation("androidx.test.ext:junit:1.3.0")
+    androidTestImplementation("androidx.test:core:1.7.0")
+    androidTestImplementation("androidx.test:runner:1.7.0")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+    testImplementation("junit:junit:4.13.2")
+
 }

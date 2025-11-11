@@ -4,11 +4,18 @@ import com.example.successmeter.data.local.db.entity.QuoteEntity
 import kotlinx.coroutines.flow.Flow
 
 interface QuoteRepository {
-    fun observeRecent(limit: Int = 50): Flow<List<QuoteEntity>>
-    suspend fun upsert(quote: QuoteEntity)
-
-
-
+//    fun observeRecent(limit: Int = 50): Flow<List<QuoteEntity>>
+    fun observeAll(): Flow<List<QuoteEntity>>
+//    fun observeFavourites(): Flow<List<QuoteEntity>>
+    fun search(q: String): Flow<List<QuoteEntity>>
+    fun filterByTag(tag: String): Flow<List<QuoteEntity>>
+    suspend fun upsert(q: QuoteEntity): Long
+    suspend fun softDelete(id: Long)
+    suspend fun pickRandomFavorite(): QuoteEntity?
+    suspend fun pickRandomAny(): QuoteEntity?
+    suspend fun incrementUses(id: Long)
+    suspend fun count(): Int
+    suspend fun ensureSeeded()
 
 
     // “Why do I need a repository at all if the DAO already has the same functions?”
