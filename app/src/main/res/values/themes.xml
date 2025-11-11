@@ -1,9 +1,56 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.SuccessMeter" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SuccessMeter" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Color roles -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- Typography + shape -->
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.SuccessMeter.Body</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.SuccessMeter.Title</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.SuccessMeter</item>
+
+        <!-- Common widget styles -->
+        <item name="materialButtonStyle">@style/Widget.SuccessMeter.Button</item>
+        <item name="materialCardViewStyle">@style/Widget.SuccessMeter.Card</item>
+        <item name="textInputStyle">@style/Widget.SuccessMeter.TextInputLayout</item>
+        <item name="chipStyle">@style/Widget.SuccessMeter.Chip</item>
     </style>
 
-    <style name="Theme.SuccessMeter" parent="Base.Theme.SuccessMeter" />
+    <!-- Widgets -->
+    <style name="Widget.SuccessMeter.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">16dp</item>
+    </style>
+    <style name="Widget.SuccessMeter.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">20dp</item>
+    </style>
+    <style name="Widget.SuccessMeter.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+    </style>
+    <style name="Widget.SuccessMeter.Chip" parent="Widget.Material3.Chip.Assist"/>
 </resources>

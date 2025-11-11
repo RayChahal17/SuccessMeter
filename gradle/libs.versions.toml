@@ -1,6 +1,6 @@
 [versions]
 # Android Gradle Plugin & Kotlin
-agp = "8.5.2"
+agp = "8.10.1"
 kotlin = "1.9.22"
 # AndroidX + Google libs (stable picks)
 coreKtx = "1.13.1"

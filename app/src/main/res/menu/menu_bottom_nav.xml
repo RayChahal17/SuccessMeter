@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_intervals" android:title="Intervals" android:icon="@drawable/ic_schedule"/>
+    <item android:id="@+id/nav_tasks"     android:title="Tasks"     android:icon="@drawable/ic_checklist"/>
+    <item android:id="@+id/nav_goals"     android:title="Goals"     android:icon="@drawable/ic_flag"/>
+    <item android:id="@+id/nav_graphs"    android:title="Graphs"    android:icon="@drawable/ic_chart"/>
+    <item android:id="@+id/nav_quotes"    android:title="Quotes"    android:icon="@drawable/ic_quote"/>
+</menu>

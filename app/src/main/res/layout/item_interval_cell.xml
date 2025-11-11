@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_margin="6dp"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:background="@drawable/bg_surface_outline_16">          <!-- rounded + subtle outline -->
+    <!-- Later: badges/labels for ABCDE or goal icons can sit inside this FrameLayout -->
+    </FrameLayout>

@@ -1,6 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_intervals">
 
+    <fragment android:id="@+id/nav_intervals"
+        android:name="com.example.successmeter.ui.intervals.IntervalsFragment"
+        android:label="Intervals" />
+
+    <fragment android:id="@+id/nav_tasks"
+        android:name="com.example.successmeter.ui.tasks.TasksFragment"
+        android:label="Tasks" />
+
+    <fragment android:id="@+id/nav_goals"
+        android:name="com.example.successmeter.ui.goals.GoalsFragment"
+        android:label="Goals" />
+
+    <fragment android:id="@+id/nav_graphs"
+        android:name="com.example.successmeter.ui.graphs.GraphsFragment"
+        android:label="Graphs" />
+
+    <fragment android:id="@+id/nav_quotes"
+        android:name="com.example.successmeter.ui.quotes.MissionQuotesFragment"
+        android:label="Mission and Quotes" />
+
+    <!-- reserve IDs for later -->
+<!--    <fragment android:id="@+id/nav_feed" android:name="androidx.fragment.app.Fragment" />-->
+<!--    <fragment android:id="@+id/nav_profile" android:name="androidx.fragment.app.Fragment" />-->
 </navigation>

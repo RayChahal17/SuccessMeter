@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sm_radius_08">8dp</dimen>
+    <dimen name="sm_radius_12">12dp</dimen>
+    <dimen name="sm_radius_16">16dp</dimen>
+    <dimen name="sm_radius_20">20dp</dimen>
+    <dimen name="sm_radius_28">28dp</dimen>
+    <dimen name="sm_pill">999dp</dimen>
+
+    <dimen name="sm_icon_container">40dp</dimen>
+    <dimen name="sm_stroke_1">1dp</dimen>
+    <dimen name="sm_stroke_2">2dp</dimen>
+</resources>

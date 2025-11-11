@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary (deep navy) -->
+    <color name="md_theme_light_primary">#0F1D40</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#E6ECFF</color>
+    <color name="md_theme_light_onPrimaryContainer">#0A1430</color>
+
+    <!-- Secondary (emerald) -->
+    <color name="md_theme_light_secondary">#0D6B5A</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#D4F3EC</color>
+    <color name="md_theme_light_onSecondaryContainer">#053D34</color>
+
+    <!-- Tertiary (muted gold — use sparingly) -->
+    <color name="md_theme_light_tertiary">#B78A28</color>
+    <color name="md_theme_light_onTertiary">#1A1300</color>
+    <color name="md_theme_light_tertiaryContainer">#F7E6BE</color>
+    <color name="md_theme_light_onTertiaryContainer">#261B00</color>
+
+    <!-- Neutrals / Surfaces -->
+    <color name="md_theme_light_background">#FFFFFF</color>
+    <color name="md_theme_light_onBackground">#1A1C1E</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_surfaceVariant">#ECEEF4</color>
+    <color name="md_theme_light_onSurfaceVariant">#454C5A</color>
+    <color name="md_theme_light_outline">#7A8090</color>
+    <color name="md_theme_light_error">#BA1A1A</color>
+
+    <!-- Optional brand aliases for targeted use (graphs, crowns, etc.) -->
+    <color name="sm_brand_gold">#B78A28</color>
+    <color name="sm_brand_emerald">#0D6B5A</color>
+    <color name="sm_brand_navy">#0F1D40</color>
+
+    <!-- Neutrals -->
+    <color name="md_theme_light_onSurface">#1B1B21</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
 </resources>

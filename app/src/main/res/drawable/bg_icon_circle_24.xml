@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorPrimary">
+    <item>
+        <shape android:shape="oval">
+            <size android:width="@dimen/sm_icon_container" android:height="@dimen/sm_icon_container"/>
+            <solid android:color="?attr/colorPrimaryContainer"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
+            <solid android:color="?attr/colorOnPrimaryContainer"/>
+        </shape>
+    </item>
+</ripple>

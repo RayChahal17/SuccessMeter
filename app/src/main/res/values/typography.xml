@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.SuccessMeter.Display" parent="TextAppearance.Material3.DisplayMedium" />
+    <style name="TextAppearance.SuccessMeter.Headline" parent="TextAppearance.Material3.HeadlineMedium" />
+    <style name="TextAppearance.SuccessMeter.Title" parent="TextAppearance.Material3.TitleLarge" />
+    <style name="TextAppearance.SuccessMeter.Body" parent="TextAppearance.Material3.BodyMedium" />
+    <style name="TextAppearance.SuccessMeter.Label" parent="TextAppearance.Material3.LabelLarge" />
+</resources>
