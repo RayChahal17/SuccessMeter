@@ -1,4 +1,4 @@
-package com.example.successmeter.ui.intervals
+package com.example.successmeter.ui.today
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.successmeter.R
 
-class PlaceholderIntervalsAdapter(private val span: Int)
-    : RecyclerView.Adapter<PlaceholderIntervalsAdapter.ViewHolder>() {
+class PlaceholderTodayAdapter(private val span: Int)
+    : RecyclerView.Adapter<PlaceholderTodayAdapter.ViewHolder>() {
 
     // 24 hours * slots per hour
     private val total = 24 * span

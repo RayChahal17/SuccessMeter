@@ -23,7 +23,9 @@ class HomeFragment : Fragment() {
     //This gets a ViewModel scoped to this Fragment.
     //Hilt will build it (because the VM is annotated with @HiltViewModel and has @Inject constructor).
     //Benefit: survives config changes (rotation), so data/state isn’t lost.
-    private val adapter = QuoteAdapter()
+    private val adapter = QuoteAdapter(
+        onFavToggle = TODO()
+    )
     //Your RecyclerView adapter that knows how to display each row (quotes).
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -70,6 +70,7 @@ dependencies {
     // Room (Week 2 will use it)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.animation.core)
     kapt(libs.androidx.room.compiler)
 
     // Hilt

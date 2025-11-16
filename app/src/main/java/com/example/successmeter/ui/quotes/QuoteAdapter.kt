@@ -1,15 +1,20 @@
 package com.example.successmeter.ui.quotes
 
+import android.util.Log.v
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.animation.core.animate
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.successmeter.R
 import com.example.successmeter.data.local.db.entity.QuoteEntity
 import com.example.successmeter.databinding.ItemQuoteBinding
 
 class QuoteAdapter(
-    private val onItemClick: (QuoteEntity) -> Unit = {}
+
+    private val onFavToggle: (QuoteEntity, Boolean) -> Unit
+
 ) : ListAdapter<QuoteEntity, QuoteAdapter.VH>(Diff) {
 
     object Diff : DiffUtil.ItemCallback<QuoteEntity>() {
@@ -31,7 +36,20 @@ class QuoteAdapter(
             ?.takeIf { it.isNotBlank() }
             ?.let { "— $it" } ?: ""
 
-        h.binding.root.setOnClickListener { onItemClick(item) }
+        h.binding.btnFav.setImageResource(
+            if (item.isFavorite) R.drawable.ic_star else R.drawable.ic_star_border_24
+        )
+
+        // Handle star taps:
+        // 1) small tap animation (delight)
+        // 2) emit the intent (quote, newFavState) to the VM via callback
+
+        h.binding.btnFav.setOnClickListener { v ->
+            v.animate().scaleX(0.9f).scaleY(0.9f).setDuration(80).withEndAction {
+                v.animate().scaleX(1f).scaleY(1f).setDuration(80).start()
+            }.start()
+            onFavToggle(item, !item.isFavorite)
+        }
     }
 
     // Optional smoother animations:

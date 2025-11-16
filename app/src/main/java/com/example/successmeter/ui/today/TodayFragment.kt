@@ -1,4 +1,4 @@
-package com.example.successmeter.ui.intervals
+package com.example.successmeter.ui.today
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.successmeter.databinding.FragmentIntervalsBinding
+import com.example.successmeter.databinding.FragmentTodayBinding
 
 /**
- * IntervalsFragment
+ * TodayFragment
  * -----------------
  * Shows a simple grid of empty interval cells.
  * No data logic yet — just the visual scaffold.
  */
-class IntervalsFragment : Fragment() {
+class TodayFragment : Fragment() {
 
     // ViewBinding pattern for Fragments
-    private var _binding: FragmentIntervalsBinding? = null
+    private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,7 +26,7 @@ class IntervalsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the binding instead of using inflate(R.layout...)
-        _binding = FragmentIntervalsBinding.inflate(inflater, container, false)
+        _binding = FragmentTodayBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,7 +37,7 @@ class IntervalsFragment : Fragment() {
 
         // Set up the RecyclerView grid and attach the simple adapter
         binding.recyclerIntervals.layoutManager = GridLayoutManager(requireContext(), span)
-        binding.recyclerIntervals.adapter = PlaceholderIntervalsAdapter(span)
+        binding.recyclerIntervals.adapter = PlaceholderTodayAdapter(span)
     }
 
     override fun onDestroyView() {

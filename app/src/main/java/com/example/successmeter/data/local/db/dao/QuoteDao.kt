@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RoomSQLiteQuery
 import com.example.successmeter.data.local.db.entity.QuoteEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -41,6 +42,9 @@ interface QuoteDao {
     // Soft delete sets a timestamp (millis). Any non-null means “deleted”.
     @Query("UPDATE quote SET deletedAt = strftime('%s','now')*1000 WHERE id = :id")
     suspend fun softDelete(id: Long)
+
+    @Query("UPDATE quote SET isFavorite = :fav WHERE id = :id")
+    suspend fun updateFavorite(id: Long, fav: Boolean)
 
     // Helpers
     @Query("""

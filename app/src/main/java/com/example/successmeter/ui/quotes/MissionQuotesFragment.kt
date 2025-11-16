@@ -34,16 +34,12 @@ class MissionQuotesFragment : Fragment() {
     private var _binding: FragmentMissionQuotesBinding? = null
     private val binding get() = _binding!!
 
-    // Swap HomeViewModel → QuotesViewModel
+    // ViewModel owns data & mutations
     private val vm: QuotesViewModel by viewModels()
 
-    private val adapter = QuoteAdapter { quote ->
-        // Example: copy to clipboard + increment uses
-        val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        cm.setPrimaryClip(ClipData.newPlainText("Quote", "“${quote.text}” — ${quote.author ?: ""}"))
-        Snackbar.make(binding.root, "Copied", Snackbar.LENGTH_SHORT).show()
-        vm.incrementUses(quote.id)
-    }
+    // Adapter exposes two distinct user intents:
+    // 1) onQuoteClick (row)  2) onFavToggle (star)
+    private lateinit var adapter: QuoteAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View {
         _binding = FragmentMissionQuotesBinding.inflate(inflater, container, false)
@@ -51,28 +47,46 @@ class MissionQuotesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // 1) LayoutManager (required) – vertical list
-        binding.recyclerQuotes.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+        // 0) Build adapter with clear intent separation
+        adapter = QuoteAdapter(
+            onFavToggle = { quote, newFav ->
+                vm.setFavorite(quote.id, newFav) // business event: “user favored”
+            }
+        )
 
-        // 2) Adapter
-        binding.recyclerQuotes.adapter = adapter
+        // 1) RecyclerView setup: layout, adapter, perf hints
+        binding.recyclerQuotes.apply {
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+            adapter = this@MissionQuotesFragment.adapter
+            setHasFixedSize(true) // rows are identical height -> diffing is faster
+            // Add spacing once (avoid stacking decoration if navigating back)
+            if (itemDecorationCount == 0) {
+                val px = (12 * resources.displayMetrics.density).toInt()
+                addItemDecoration(VerticalSpaceItemDecoration(px))
+            }
+        }
 
-        // 3) Optional performance hint (size doesn’t change when content updates)
-        binding.recyclerQuotes.setHasFixedSize(true)
-
-        // 4) Optional spacing
-        val px = (12 * resources.displayMetrics.density).toInt()
-        binding.recyclerQuotes.addItemDecoration(VerticalSpaceItemDecoration(px))
-
-        // 5) Collect your flow as before…
+        // 2) Collect list updates with lifecycle awareness
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.quotes.collect { list -> adapter.submitList(list) }
             }
         }
+
+        // 3) (Optional) Search box wiring if you have one in the layout:
+        // binding.etSearch.doAfterTextChanged { vm.setQuery(it?.toString().orEmpty()) }
     }
 
-    override fun onDestroyView() { super.onDestroyView(); _binding = null }
-}
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // avoid leaks
+    }
 
+    // --- Helpers ---
+
+    // Keep platform details here so your adapter & VM stay clean
+    private fun copyToClipboard(label: String, text: String) {
+        val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        cm.setPrimaryClip(ClipData.newPlainText(label, text))
+    }
+}
