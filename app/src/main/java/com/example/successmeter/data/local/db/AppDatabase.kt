@@ -2,13 +2,21 @@ package com.example.successmeter.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.successmeter.data.local.db.dao.ChiefAimDao
+import com.example.successmeter.data.local.db.dao.GoalDao
 import com.example.successmeter.data.local.db.dao.QuoteDao
+import com.example.successmeter.data.local.db.dao.TaskDao
 import com.example.successmeter.data.local.db.entity.QuoteEntity
 
 @Database(entities = [QuoteEntity::class], version = 2, exportSchema = false)
 
 abstract class AppDatabase : RoomDatabase(){
     abstract fun quoteDao(): QuoteDao
+
+    abstract fun chiefAimDao(): ChiefAimDao
+    abstract fun goalDao(): GoalDao
+    abstract fun taskDao(): TaskDao
+
 
     // " abstract fun quoteDao(): QuoteDao" -->
     // You’re seeing two different things that just happen to look similar:
