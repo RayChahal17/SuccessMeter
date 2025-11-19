@@ -10,7 +10,7 @@ data class GoalEntity(
     val parentGoalId: Long?, //Null if directly under chief aim
     val title: String,
     val description: String? = null,
-    val targetDate: Long? = null,   // later mapped to LocalDate? in domain
+    val targetDate: Long,   // later mapped to LocalDate? in domain
     val createdAt: Long,
     val updatedAt: Long? = null,
     val isCompleted: Boolean = false,

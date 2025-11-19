@@ -7,8 +7,15 @@ import com.example.successmeter.data.local.db.dao.GoalDao
 import com.example.successmeter.data.local.db.dao.QuoteDao
 import com.example.successmeter.data.local.db.dao.TaskDao
 import com.example.successmeter.data.local.db.entity.QuoteEntity
+import com.example.successmeter.data.local.db.entity.ChiefAimEntity
+import com.example.successmeter.data.local.db.entity.GoalEntity
+import com.example.successmeter.data.local.db.entity.TaskEntity
 
-@Database(entities = [QuoteEntity::class], version = 2, exportSchema = false)
+@Database(entities = [QuoteEntity::class,
+    ChiefAimEntity::class,
+    GoalEntity::class,
+    TaskEntity::class, ],
+    version = 2, exportSchema = false)
 
 abstract class AppDatabase : RoomDatabase(){
     abstract fun quoteDao(): QuoteDao
