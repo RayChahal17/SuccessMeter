@@ -3,16 +3,16 @@ package com.example.successmeter.data.local.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Goal")
+@Entity(tableName = "goals")
 data class GoalEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val chiefAimId: Long,
     val parentGoalId: Long?, //Null if directly under chief aim
     val title: String,
-    val description: String,
-    val targetDate: Long,
-    val createdAt: Long = System.currentTimeMillis(),
-    val updatedAt: Long = System.currentTimeMillis(),
+    val description: String? = null,
+    val targetDate: Long? = null,   // later mapped to LocalDate? in domain
+    val createdAt: Long,
+    val updatedAt: Long? = null,
     val isCompleted: Boolean = false,
     val completedAt: Long? = null,
     val isArchived: Boolean = false,
