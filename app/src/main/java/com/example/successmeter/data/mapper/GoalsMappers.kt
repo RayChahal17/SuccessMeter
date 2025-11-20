@@ -4,7 +4,6 @@ import com.example.successmeter.data.local.db.entity.ChiefAimEntity
 import com.example.successmeter.data.local.db.entity.GoalEntity
 import com.example.successmeter.data.local.db.entity.TaskEntity
 import com.example.successmeter.domain.model.ChiefAim
-import com.example.successmeter.domain.model.ChiefAimRank
 import com.example.successmeter.domain.model.Goal
 import com.example.successmeter.domain.model.Task
 import java.time.Instant
