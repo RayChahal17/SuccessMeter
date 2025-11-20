@@ -17,6 +17,8 @@ object RepositoryModule {
     @Provides @Singleton
     fun provideQuoteRepository(dao: QuoteDao): QuoteRepository = QuoteRepositoryRoom(dao)
 //Hilt can now “deliver” a DB, the DAO, and the repository anywhere we ask via @Inject.
+
+
 }
 
 

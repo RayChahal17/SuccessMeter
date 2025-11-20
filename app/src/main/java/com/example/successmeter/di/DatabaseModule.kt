@@ -3,6 +3,9 @@ package com.example.successmeter.di
 import android.content.Context
 import androidx.room.Room
 import com.example.successmeter.data.local.db.AppDatabase
+import com.example.successmeter.data.local.db.dao.ChiefAimDao
+import com.example.successmeter.data.local.db.dao.GoalDao
+import com.example.successmeter.data.local.db.dao.TaskDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,4 +44,20 @@ object DatabaseModule {
     //without you manually building them everywhere.
     //After that, you simply ask for QuoteDao (or the repository)
     // with @Inject constructor(...) and Hilt brings it to you. *****
+
+    @Provides
+    fun provideChiefAimDao(
+        db: AppDatabase,
+    ): ChiefAimDao = db.chiefAimDao()
+
+    @Provides
+    fun provideGoalDao(
+        db: AppDatabase,
+    ): GoalDao = db.goalDao()
+
+    @Provides
+    fun provideTaskDao(
+        db: AppDatabase,
+    ): TaskDao = db.taskDao()
+
 }

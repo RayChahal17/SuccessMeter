@@ -15,7 +15,7 @@ import com.example.successmeter.data.local.db.entity.TaskEntity
     ChiefAimEntity::class,
     GoalEntity::class,
     TaskEntity::class, ],
-    version = 2, exportSchema = false)
+    version = 3, exportSchema = false)
 
 abstract class AppDatabase : RoomDatabase(){
     abstract fun quoteDao(): QuoteDao
