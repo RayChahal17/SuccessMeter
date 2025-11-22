@@ -11,19 +11,20 @@ import com.example.successmeter.databinding.FragmentGoalsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-/**
- * Simple Goals screen for now:
- * - Injects GoalsViewModel.
- * - Observes chiefAims and shows them in a TextView.
- */
+// Marks this Fragment as a Hilt injection target.
+// Required so that `by viewModels()` can obtain a Hilt-backed ViewModel.
 @AndroidEntryPoint
 class GoalsFragment : Fragment() {
 
-    // Hilt-provided ViewModel scoped to this Fragment.
+    // ViewModel scoped to this Fragment. Hilt automatically provides
+    // a GoalsViewModel instance using the @HiltViewModel + @Inject constructor.
     private val viewModel: GoalsViewModel by viewModels()
 
-    // ViewBinding for this fragment's layout.
+    // Backing field for ViewBinding. Nullable because the Fragment's view
+    // lifecycle is shorter than the Fragment's lifecycle itself.
     private var _binding: FragmentGoalsBinding? = null
+
+    // Non-nullable accessor used only between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,20 +32,32 @@ class GoalsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the binding instead of using inflate(R.layout...)
+        // Inflate the layout using generated binding class instead of
+        // calling inflater.inflate(R.layout.fragment_goals, ...).
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
+
+        // Root view of this Fragment's layout.
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Collect the chiefAims StateFlow and update the TextView whenever it changes.
+        // Use the Fragment's viewLifecycleOwner so that the collection stops
+        // when the view is destroyed (avoids leaks / crashes).
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.chiefAims.collect { chiefAims ->
+            // Continuously collect uiState from the ViewModel.
+            viewModel.uiState.collect { state ->
+                // Extract the list of chief aims from the state.
+                val chiefAims = state.chiefAims
+
                 if (chiefAims.isEmpty()) {
+                    // No data yet: show a friendly empty-state message.
                     binding.textChiefAimsDebug.text = "No chief aims yet"
                 } else {
+                    // Build a multi-line string like:
+                    // PRIMARY: My Main Aim
+                    // SECONDARY: Another Aim
                     binding.textChiefAimsDebug.text =
                         chiefAims.joinToString(separator = "\n") { aim ->
                             "${aim.rank}: ${aim.title}"
@@ -56,7 +69,8 @@ class GoalsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Important to avoid memory leaks when using view binding in fragments.
+        // Important: clear the binding reference when the view is destroyed
+        // to avoid leaking the view hierarchy.
         _binding = null
     }
 }
