@@ -50,10 +50,12 @@ class GoalsFragment : Fragment() {
             viewModel.uiState.collect { state ->
                 // Extract the list of chief aims from the state.
                 val chiefAims = state.chiefAims
+                val count = state.numberOfChiefAims
+
 
                 if (chiefAims.isEmpty()) {
                     // No data yet: show a friendly empty-state message.
-                    binding.textChiefAimsDebug.text = "No chief aims yet"
+                    binding.textChiefAimsDebug.text = "No chief aims yet ${count}"
                 } else {
                     // Build a multi-line string like:
                     // PRIMARY: My Main Aim

@@ -36,7 +36,8 @@ class GoalsViewModel @Inject constructor(
                 GoalsUiState(
                     chiefAims = aims,
                     isLoading = false,
-                )
+                    numberOfChiefAims = aims.size,
+                    )
             }
 
             // 3) Convert the cold Flow<GoalsUiState> into a hot StateFlow<GoalsUiState>.
@@ -54,6 +55,8 @@ class GoalsViewModel @Inject constructor(
                 initialValue = GoalsUiState(
                     chiefAims = emptyList(),
                     isLoading = true, // we can treat the very beginning as "loading"
-                ),
+                    numberOfChiefAims = 0,
+
+                    ),
             )
 }

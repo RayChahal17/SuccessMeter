@@ -15,4 +15,6 @@ import com.example.successmeter.domain.model.ChiefAim
 data class GoalsUiState(
     val chiefAims: List<ChiefAim> = emptyList(),
     val isLoading: Boolean = false,
+    val numberOfChiefAims: Int = 0
+
 )
