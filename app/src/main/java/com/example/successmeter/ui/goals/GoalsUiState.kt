@@ -1,6 +1,7 @@
 package com.example.successmeter.ui.goals
 
 import com.example.successmeter.domain.model.ChiefAim
+import com.example.successmeter.domain.model.ChiefAimRank
 
 /**
  * All the state the Goals screen needs from the ViewModel.
@@ -15,6 +16,6 @@ import com.example.successmeter.domain.model.ChiefAim
 data class GoalsUiState(
     val chiefAims: List<ChiefAim> = emptyList(),
     val isLoading: Boolean = false,
-    val numberOfChiefAims: Int = 0
-
-)
+    val numberOfChiefAims: Int = 0,
+    val selectedChiefAimRank: ChiefAimRank? = null,
+    )

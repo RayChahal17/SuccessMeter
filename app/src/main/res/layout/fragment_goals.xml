@@ -1,17 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/goalsRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.goals.GoalsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!-- Debug text just to show chief aims for now -->
+    <!-- Simple row of buttons to simulate tabs for now -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/buttonPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Primary" />
+
+        <Button
+            android:id="@+id/buttonSecondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Secondary" />
+
+        <Button
+            android:id="@+id/buttonTertiary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tertiary" />
+    </LinearLayout>
+
+    <!-- Debug text just to show chief aims and selection for now -->
     <TextView
         android:id="@+id/textChiefAimsDebug"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Loading chief aims..."
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:padding="16dp" />
 
-</FrameLayout>
+</LinearLayout>

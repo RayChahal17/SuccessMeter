@@ -1,5 +1,6 @@
 package com.example.successmeter.ui.goals
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.successmeter.databinding.FragmentGoalsBinding
+import com.example.successmeter.domain.model.ChiefAimRank
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -40,8 +42,20 @@ class GoalsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.buttonPrimary.setOnClickListener {
+            viewModel.onChiefAimSelected(ChiefAimRank.PRIMARY)
+        }
+        binding.buttonSecondary.setOnClickListener {
+            viewModel.onChiefAimSelected(ChiefAimRank.SECONDARY)
+        }
+        binding.buttonTertiary.setOnClickListener {
+            viewModel.onChiefAimSelected(ChiefAimRank.TERTIARY)
+        }
+
 
         // Use the Fragment's viewLifecycleOwner so that the collection stops
         // when the view is destroyed (avoids leaks / crashes).
@@ -51,20 +65,24 @@ class GoalsFragment : Fragment() {
                 // Extract the list of chief aims from the state.
                 val chiefAims = state.chiefAims
                 val count = state.numberOfChiefAims
-
+                val selectedRank = state.selectedChiefAimRank
 
                 if (chiefAims.isEmpty()) {
-                    // No data yet: show a friendly empty-state message.
-                    binding.textChiefAimsDebug.text = "No chief aims yet ${count}"
+                    binding.textChiefAimsDebug.text = "No chief aims yet $count"
                 } else {
-                    // Build a multi-line string like:
-                    // PRIMARY: My Main Aim
-                    // SECONDARY: Another Aim
-                    binding.textChiefAimsDebug.text =
+                    val header = if (selectedRank != null) {
+                        "Selected chief aim: $selectedRank\n\n"
+                    } else {
+                        "No chief aim selected\n\n"
+                    }
+
+                    val aimsText =
                         chiefAims.joinToString(separator = "\n") { aim ->
                             "${aim.rank}: ${aim.title}"
                         }
-                }
+
+                    binding.textChiefAimsDebug.text = header + aimsText
+                    }
             }
         }
     }
