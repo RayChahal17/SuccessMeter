@@ -13,8 +13,12 @@ import com.example.successmeter.domain.model.ChiefAimRank
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-// Marks this Fragment as a Hilt injection target.
-// Required so that `by viewModels()` can obtain a Hilt-backed ViewModel.
+/**
+ * Simple Goals screen for now:
+ * - Injects GoalsViewModel.
+ * - Observes uiState and shows selected rank + chief aims in a TextView.
+ * - Has three buttons to simulate PRIMARY / SECONDARY / TERTIARY tabs.
+ */
 @AndroidEntryPoint
 class GoalsFragment : Fragment() {
 
@@ -37,15 +41,15 @@ class GoalsFragment : Fragment() {
         // Inflate the layout using generated binding class instead of
         // calling inflater.inflate(R.layout.fragment_goals, ...).
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
-
         // Root view of this Fragment's layout.
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n") // For now we're hardcoding debug text.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // --- User inputs (fake tabs) ---
         binding.buttonPrimary.setOnClickListener {
             viewModel.onChiefAimSelected(ChiefAimRank.PRIMARY)
         }
@@ -56,33 +60,42 @@ class GoalsFragment : Fragment() {
             viewModel.onChiefAimSelected(ChiefAimRank.TERTIARY)
         }
 
+        // --- Debug seed button ---
+        binding.buttonSeedChiefAims.setOnClickListener {
+            viewModel.onDebugSeedChiefAims()
+        }
 
+        // --- State collection ---
         // Use the Fragment's viewLifecycleOwner so that the collection stops
         // when the view is destroyed (avoids leaks / crashes).
         viewLifecycleOwner.lifecycleScope.launch {
             // Continuously collect uiState from the ViewModel.
             viewModel.uiState.collect { state ->
-                // Extract the list of chief aims from the state.
+                // Extract pieces of state that the UI needs.
                 val chiefAims = state.chiefAims
                 val count = state.numberOfChiefAims
                 val selectedRank = state.selectedChiefAimRank
 
                 if (chiefAims.isEmpty()) {
-                    binding.textChiefAimsDebug.text = "No chief aims yet $count"
+                    // No data yet: show a friendly empty-state message.
+                    binding.textChiefAimsDebug.text = "No chief aims yet ($count)"
                 } else {
+                    // Header showing which rank is selected (if any).
                     val header = if (selectedRank != null) {
                         "Selected chief aim: $selectedRank\n\n"
                     } else {
                         "No chief aim selected\n\n"
                     }
 
-                    val aimsText =
-                        chiefAims.joinToString(separator = "\n") { aim ->
-                            "${aim.rank}: ${aim.title}"
-                        }
+                    // Build a multi-line string like:
+                    // PRIMARY: My Main Aim
+                    // SECONDARY: Another Aim
+                    val aimsText = chiefAims.joinToString(separator = "\n") { aim ->
+                        "${aim.rank}: ${aim.title}"
+                    }
 
                     binding.textChiefAimsDebug.text = header + aimsText
-                    }
+                }
             }
         }
     }

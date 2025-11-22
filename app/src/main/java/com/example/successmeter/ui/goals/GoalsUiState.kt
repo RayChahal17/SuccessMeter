@@ -8,14 +8,26 @@ import com.example.successmeter.domain.model.ChiefAimRank
  *
  * Right now:
  * - list of chief aims
- * - which chief aim (by rank) is selected
+ * - loading flag
+ * - how many chief aims there are
+ * - which chief aim rank is selected (if any)
  *
- * We will add more fields later (goal tree, loading, etc.).
+ * Later we’ll add:
+ * - goals for selected chief aim
+ * - tasks for selected goal
+ * - error messages, dialogs, etc.
  */
-
 data class GoalsUiState(
+    // Data coming from the domain/repository:
     val chiefAims: List<ChiefAim> = emptyList(),
+
+    // UI status:
     val isLoading: Boolean = false,
+
+    // Derived data (computed from chiefAims):
     val numberOfChiefAims: Int = 0,
+
+    // UI-only selection (which tab/rank is selected):
+    // null means “nothing selected yet”.
     val selectedChiefAimRank: ChiefAimRank? = null,
-    )
+)

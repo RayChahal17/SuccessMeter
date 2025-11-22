@@ -36,6 +36,13 @@
             android:text="Tertiary" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/buttonSeedChiefAims"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Seed Chief Aims (Debug)" />
+
     <!-- Debug text just to show chief aims and selection for now -->
     <TextView
         android:id="@+id/textChiefAimsDebug"
